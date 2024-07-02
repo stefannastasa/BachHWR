@@ -24,6 +24,12 @@ class ModelLoader:
 
     def __init__(self):
         LABEL_ENC = os.environ.get("LABEL_ENC", "./label_enc")
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+            print(f"Using GPU: {torch.cuda.get_device_name()}")
+        else:
+            device = torch.device("cpu")
+            print("CUDA is not available. Using CPU instead.")
 
         self.label_enc = pickle_load(LABEL_ENC)
 
@@ -47,7 +53,7 @@ class ModelLoader:
             num_layers=8,
             fup=16,
         )
-
+        self.model.to(device)
         self.model.load_state_dict(self._get_statedict(), strict=False)
         self.model.eval()
 

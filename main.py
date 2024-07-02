@@ -36,6 +36,12 @@ class UrlList(BaseModel):
 transform = InfImageTransforms()
 transform = transform.test_trnsf
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
+
+
 def download_image(url):
     response = requests.get(url)
     if response.status_code == 200:
@@ -44,9 +50,8 @@ def download_image(url):
         cv.imwrite("./image.png", image)
         image = np.array(image)
         image = transform(image=image)["image"]
-        image = torch.tensor(image)
+        image = torch.tensor(image).to(device)
         image = image.unsqueeze(0).unsqueeze(0)  # Add batch dimension
-        print(image.size())
         return image
     else:
         raise HTTPException(status_code=400, detail=f"Failed to download image from {url}")
