@@ -24,14 +24,10 @@ from model.utils import pickle_save
 
 # ds = IAMDataset(root="/Users/tefannastasa/BachelorsWorkspace/BachModels/BachModels/data/raw/IAM", label_enc=None, parse_method="form" ,split="test")
 # pickle_save(ds.label_enc, "./label_enc")
-
 app = FastAPI()
-
 model = ModelLoader()
-pipeline = InferencePipeline(model)
 
-class UrlList(BaseModel):
-    urls: List[str]
+pipeline = InferencePipeline(model)
 
 transform = InfImageTransforms()
 transform = transform.test_trnsf
@@ -43,6 +39,8 @@ else:
     device = torch.device("cpu")
     print("Cuda is not available.")
 
+class UrlList(BaseModel):
+    urls: List[str]
 
 def download_image(url):
     response = requests.get(url)
@@ -86,6 +84,10 @@ if __name__ == "__main__":
     #   result_queue = pipeline.add_task(image)
     #   result = "".join(result_queue.get())
     #   print(result)
+
+
+
+
     SERVER_ADDRESS = os.environ.get("SERVER_ADDRESS", "0.0.0.0")
     SERVER_PORT    = os.environ.get("SERVER_PORT", "27018")
     uvicorn.run(app, host=SERVER_ADDRESS, port=int(SERVER_PORT))

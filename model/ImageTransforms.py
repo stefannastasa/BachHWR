@@ -85,7 +85,7 @@ class ImageTransforms:
     max_img_size: Tuple[int, int]  # (h, w)
     normalize_params: Tuple[float, float]  # (mean, std)
     scale: float = (
-        0.5
+        0.3
     )
     random_scale_limit: float = 0.1
     random_rotate_limit: int = 10
