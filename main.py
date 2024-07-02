@@ -80,5 +80,5 @@ if __name__ == "__main__":
     #   result = "".join(result_queue.get())
     #   print(result)
     SERVER_ADDRESS = os.environ.get("SERVER_ADDRESS", "0.0.0.0")
-    SERVER_PORT    = os.environ.get("SERVER_PORT", 27018)
-    uvicorn.run(app, host=SERVER_ADDRESS, port=SERVER_PORT)
+    SERVER_PORT    = os.environ.get("SERVER_PORT", "27018")
+    uvicorn.run(app, host=SERVER_ADDRESS, port=int(SERVER_PORT))
