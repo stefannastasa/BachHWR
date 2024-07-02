@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
+FROM python:3.9.19-slim-bullseye
 # Set the working directory
 WORKDIR /app
 
