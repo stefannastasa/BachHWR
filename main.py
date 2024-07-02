@@ -38,8 +38,10 @@ transform = transform.test_trnsf
 
 if torch.cuda.is_available():
     device = torch.device("cuda")
+    print("Cuda is available.")
 else:
     device = torch.device("cpu")
+    print("Cuda is not available.")
 
 
 def download_image(url):
