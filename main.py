@@ -79,5 +79,6 @@ if __name__ == "__main__":
     #   result_queue = pipeline.add_task(image)
     #   result = "".join(result_queue.get())
     #   print(result)
-
-    uvicorn.run(app, host="0.0.0.0", port=27018)
+    SERVER_ADDRESS = os.environ.get("SERVER_ADDRESS", "0.0.0.0")
+    SERVER_PORT    = os.environ.get("SERVER_PORT", 27018)
+    uvicorn.run(app, host=SERVER_ADDRESS, port=SERVER_PORT)
